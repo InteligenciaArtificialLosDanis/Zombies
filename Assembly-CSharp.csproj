@@ -63,6 +63,7 @@
      <Compile Include="Assets\Código\CodigoExterno\Proposition.cs" />
      <Compile Include="Assets\Código\CodigoExterno\RandomVariable.cs" />
      <Compile Include="Assets\Código\CodigoExterno\VariableElimination.cs" />
+     <Compile Include="Assets\Código\NuestroCodigo\Casilla.cs" />
      <Compile Include="Assets\Código\NuestroCodigo\GameManager.cs" />
  <Reference Include="Vuforia.UnityExtensions.Editor">
  <HintPath>c:/software/programacion/Unity2017p3/Editor/Data/PlaybackEngines/VuforiaSupport/Managed/Editor/Vuforia.UnityExtensions.Editor.dll</HintPath>

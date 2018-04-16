@@ -9,7 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Jackyjjc.Bayesianet;
 
-public class GameManager : MonoBehaviour
+public class GameManager2 : MonoBehaviour
 {
 
     private VariableElimination ve;
