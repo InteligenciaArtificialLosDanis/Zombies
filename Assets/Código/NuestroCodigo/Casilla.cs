@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Casilla : MonoBehaviour {
 
-    Vector2Int posMatriz = new Vector2Int(0, 0);
+   public Vector2Int posMatriz;
 	// Use this for initialization
 	void Start () {
 		
@@ -18,20 +18,24 @@ public class Casilla : MonoBehaviour {
 	}
 
     //Movidas para la posMatriz
-    void setPosMatriz(int x, int y)
+    public void setPosMatriz(int x, int y)
     {
         posMatriz.x = x;
         posMatriz.y = y;
+
+        Debug.Log(posMatriz);
         
     }
 
     public Vector2Int getPosMatriz()
     {
+        Debug.Log("Si salgo, preocupate");
         return posMatriz;
     }
 
     void OnMouseDown () {
         GameManager.instance.onClick(this.gameObject);
+ 
     }
 
 }

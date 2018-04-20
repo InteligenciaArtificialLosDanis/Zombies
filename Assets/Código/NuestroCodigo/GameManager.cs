@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -25,14 +26,20 @@ public class GameManager : MonoBehaviour {
 
     //Booleanos de Control™
     bool heroeSituado = false;
+    bool dia = true;
+    bool noche = false;
     
     //Textos y botones
     public Text textoHeroe;
     public Button botonTurno;
+    public ColorBlock colorBoton;
 
     //Posiciones necesarias para cosas™
     int posCasaX;
     int posCasaY;
+
+    int posHeroeX;
+    int posHeroeY;
 
     enum tipoCasilla { suelo, heroe, aliado, enemigo, casa };
 
@@ -70,8 +77,10 @@ public class GameManager : MonoBehaviour {
             {
                 if (tablero[i, j] == casa) 
                     Instantiate(casa, new Vector3(i, j, 0), Quaternion.identity);
-                else
+                else { 
                     Instantiate(suelo, new Vector3(i, j, 0), Quaternion.identity);
+                    tablero[i, j].GetComponent<Casilla>().setPosMatriz(i, j);
+                }
             }
         }
 
@@ -86,7 +95,63 @@ public class GameManager : MonoBehaviour {
     public void onClick(GameObject objetoCasilla)
     {
 
-        Vector2Int posCasilla = objetoCasilla.GetComponent<Casilla>().getPosMatriz();
+        Vector2Int posCasilla = objetoCasilla.GetComponent<Casilla>().posMatriz;
+        Debug.Log(posCasilla);
 
+        if (!heroeSituado)
+        {
+            tablero[posCasilla.x, posCasilla.y] = heroe;
+            posHeroeX = posCasilla.x;
+            posHeroeY = posCasilla.y;
+            Vector3 ph = objetoCasilla.transform.position;
+            Instantiate(heroe, ph, Quaternion.identity);
+            //Heroe a true, quitamos el texto y habilitamos el botón
+            textoHeroe.enabled = false;
+
+            botonTurno.GetComponent<Image>().color = Color.white;
+            botonTurno.colors = colorBoton;
+  
+
+
+            heroeSituado = true;
+        }
+
+    }
+
+
+    public void callbackDiaNoche()
+    {
+        //Si es de día, cambiamos a noche
+        if (dia)
+        {
+            sol.SetActive(false);
+            luna.SetActive(true);
+
+            dia = false;
+            noche = true;
+        }
+         //Si es de noche, cambiamos a dia
+        else
+        {
+            sol.SetActive(true);
+            luna.SetActive(false);
+
+            dia = true;
+            noche = false;
+        }
+    }
+
+    public void callbackTurno()
+    {
+        if (heroeSituado)
+        {
+            Debug.Log("JAJA SI");
+        }
+    }
+
+    public void callbackReinicio()
+    {
+        Scene scene = SceneManager.GetActiveScene();
+        SceneManager.LoadScene(scene.name);
     }
 }

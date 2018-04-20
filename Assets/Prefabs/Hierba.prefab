@@ -20,6 +20,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4154757936624478}
   - component: {fileID: 212824848338027896}
+  - component: {fileID: 114806381464091818}
+  - component: {fileID: 61127169841974644}
+  - component: {fileID: 114798586626523406}
   m_Layer: 0
   m_Name: Hierba
   m_TagString: Untagged
@@ -40,6 +43,55 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &61127169841974644
+BoxCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1098908801037098}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 3.01, y: 2.92}
+    newSize: {x: 3.01, y: 2.92}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 3.01, y: 2.92}
+  m_EdgeRadius: 0
+--- !u!114 &114798586626523406
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1098908801037098}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2994b07bc5a9d954db9a3eff9b012b19, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  posMatriz: {x: 0, y: 0}
+--- !u!114 &114806381464091818
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1098908801037098}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2994b07bc5a9d954db9a3eff9b012b19, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  posMatriz: {x: 11, y: 5}
 --- !u!212 &212824848338027896
 SpriteRenderer:
   m_ObjectHideFlags: 1

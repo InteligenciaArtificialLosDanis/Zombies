@@ -108,10 +108,10 @@ MonoBehaviour:
     y: 30
     width: 1920
     height: 948
-  m_MinSize: {x: 911, y: 442}
-  m_MaxSize: {x: 22006, y: 10021}
+  m_MinSize: {x: 917, y: 442}
+  m_MaxSize: {x: 22012, y: 10021}
   vertical: 0
-  controlID: 92
+  controlID: 9
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -154,8 +154,8 @@ MonoBehaviour:
     y: 0
     width: 822
     height: 486
-  m_MinSize: {x: 200, y: 200}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 202, y: 221}
+  m_MaxSize: {x: 4002, y: 4021}
   m_ActualView: {fileID: 13}
   m_Panes:
   - {fileID: 13}
@@ -179,8 +179,8 @@ MonoBehaviour:
     y: 486
     width: 822
     height: 462
-  m_MinSize: {x: 200, y: 200}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 202, y: 221}
+  m_MaxSize: {x: 4002, y: 4021}
   m_ActualView: {fileID: 12}
   m_Panes:
   - {fileID: 12}
@@ -366,14 +366,14 @@ MonoBehaviour:
     height: 465
   m_PersistentViewDataDictionary: {fileID: 0}
   m_SceneLighting: 1
-  lastFramingTime: 8953.16648993723
+  lastFramingTime: 3254.9058797394414
   m_2DMode: 0
   m_isRotationLocked: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 0, y: 1, z: 0}
+    m_Target: {x: 8.61975, y: 3.777, z: -8.378}
     speed: 2
-    m_Value: {x: 0, y: 1, z: 0}
+    m_Value: {x: 8.61975, y: 3.777, z: -8.378}
   m_RenderMode: 0
   m_ValidateTrueMetals: 0
   m_SceneViewState:
@@ -397,13 +397,13 @@ MonoBehaviour:
       speed: 2
       m_Value: 0
   m_Rotation:
-    m_Target: {x: -0.010589945, y: -0.20052184, z: 0.0021676468, w: -0.9796296}
+    m_Target: {x: -0.09075517, y: -0.3290339, z: 0.031787477, w: -0.9394093}
     speed: 2
-    m_Value: {x: -0.010589945, y: -0.20052184, z: 0.0021676468, w: -0.9796296}
+    m_Value: {x: -0.09075517, y: -0.3290339, z: 0.031787477, w: -0.9394093}
   m_Size:
-    m_Target: 2.4441986
+    m_Target: 5.7112117
     speed: 2
-    m_Value: 2.4441986
+    m_Value: 5.7112117
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -446,7 +446,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: aee0feffc6e7ffffd0e7ffff74fbffff00000000
+    m_ExpandedIDs: ccbdfcfff4d2fcff3091ffff04faffff000000000a2b0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -514,13 +514,13 @@ MonoBehaviour:
   m_LastFolders:
   - Assets/Prefabs
   m_LastFoldersGridSize: -1
-  m_LastProjectPath: C:\hlocal\IAV\Zombies
+  m_LastProjectPath: C:\hlocal\IAAA\Zombies
   m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 702c0000
-    m_LastClickedID: 11376
-    m_ExpandedIDs: 000000002c2900008429000000ca9a3bffffff7f
+    m_SelectedIDs: 642a0000
+    m_LastClickedID: 10852
+    m_ExpandedIDs: 00000000022a0000582a000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -548,7 +548,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 000000002c29000084290000
+    m_ExpandedIDs: 00000000022a0000582a0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
