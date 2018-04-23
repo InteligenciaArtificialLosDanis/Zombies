@@ -41,6 +41,10 @@ public class GameManager : MonoBehaviour {
     int posHeroeX;
     int posHeroeY;
 
+    //Contadores
+    int numAliados = 0;     //max 5
+    int numEnemigos = 0;    //max 20
+
     enum tipoCasilla { suelo, heroe, aliado, enemigo, casa };
 
     GameObject[,] tablero;
@@ -98,12 +102,16 @@ public class GameManager : MonoBehaviour {
         Vector2Int posCasilla = objetoCasilla.GetComponent<Casilla>().posMatriz;
         Debug.Log(posCasilla);
 
+        Vector3 ph = objetoCasilla.transform.position;
+
         if (!heroeSituado)
         {
             tablero[posCasilla.x, posCasilla.y] = heroe;
             posHeroeX = posCasilla.x;
             posHeroeY = posCasilla.y;
-            Vector3 ph = objetoCasilla.transform.position;
+
+            Destroy(objetoCasilla);
+
             Instantiate(heroe, ph, Quaternion.identity);
             //Heroe a true, quitamos el texto y habilitamos el botón
             textoHeroe.enabled = false;
@@ -114,6 +122,70 @@ public class GameManager : MonoBehaviour {
 
 
             heroeSituado = true;
+        }
+
+        //Cuando el héroe ya está colocado y se pulsa en una casilla que no sea héroe ni casa, esta rotará entre suelo, aliado y zombie
+        else if (heroeSituado && objetoCasilla.tag != "Heroe")
+        {
+            //Si se pulsa suelo cambiará a aliado o enemigo según capacidad
+            if (objetoCasilla.tag == "Suelo")
+            {
+                //Si caben aliados se cambiará por uno
+                if (numAliados < 5)
+                {
+                   Destroy(objetoCasilla);
+
+                   Instantiate(aliado, ph, Quaternion.identity);
+                    numAliados++;
+                }
+
+                //Si no caben aliados se pondran enemigos hasta llenar el cupo
+                else if ( numEnemigos < 20)
+                {
+                    Destroy(objetoCasilla);
+
+                    Instantiate(enemigo, ph, Quaternion.identity);
+                    numEnemigos++;
+                }
+
+            }
+
+            //Si se pulsa aliado cambiará a enemigo o suelo según capacidad
+            else if (objetoCasilla.tag == "Aliados")
+            {
+                //Si caben enemigos se añadiran hasta llenar el cupo
+                if (numEnemigos < 20)
+                {
+                    Destroy(objetoCasilla);
+                    if (numAliados > 0) numAliados--;
+
+                    Instantiate(enemigo, ph, Quaternion.identity);
+                    numEnemigos++;
+                }
+
+                //Si no caben más enemigos se instancia suelo
+                else
+                {
+                    Destroy(objetoCasilla);
+                    if (numAliados > 0) numAliados--;
+
+                    Instantiate(suelo, ph, Quaternion.identity);
+
+                }
+
+            }
+
+            //Si se pulsa sobre un enemigo se pondrá siempre suelo
+            else if (objetoCasilla.tag == "Enemigos")
+            {
+                Destroy(objetoCasilla);
+                if (numEnemigos > 0) numAliados--;
+
+                Instantiate(suelo, ph, Quaternion.identity);
+
+            }
+
+
         }
 
     }
