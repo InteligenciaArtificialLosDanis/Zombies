@@ -45,7 +45,7 @@ public class GameManager : MonoBehaviour {
     int numAliados = 0;     //max 5
     int numEnemigos = 0;    //max 20
 
-    enum tipoCasilla { suelo, heroe, aliado, enemigo, casa };
+    //enum tipoCasilla { suelo, heroe, aliado, enemigo, casa };
 
     GameObject[,] tablero;
 	// Use this for initialization
@@ -79,9 +79,13 @@ public class GameManager : MonoBehaviour {
         {
             for (int j = 0; j < AltoTablero; j++)
             {
-                if (tablero[i, j] == casa) 
+                if (tablero[i, j] == casa)
+                {
+                    Instantiate(suelo, new Vector3(i, j, 0), Quaternion.identity);
                     Instantiate(casa, new Vector3(i, j, 0), Quaternion.identity);
-                else { 
+                }
+                else
+                {
                     Instantiate(suelo, new Vector3(i, j, 0), Quaternion.identity);
                     tablero[i, j].GetComponent<Casilla>().setPosMatriz(i, j);
                 }
@@ -100,7 +104,7 @@ public class GameManager : MonoBehaviour {
     {
 
         Vector2Int posCasilla = objetoCasilla.GetComponent<Casilla>().posMatriz;
-        Debug.Log(posCasilla);
+        //Debug.Log(posCasilla);
 
         Vector3 ph = objetoCasilla.transform.position;
 
@@ -110,7 +114,7 @@ public class GameManager : MonoBehaviour {
             posHeroeX = posCasilla.x;
             posHeroeY = posCasilla.y;
 
-            Destroy(objetoCasilla);
+            //Destroy(objetoCasilla);
 
             Instantiate(heroe, ph, Quaternion.identity);
             //Heroe a true, quitamos el texto y habilitamos el botón
@@ -118,29 +122,99 @@ public class GameManager : MonoBehaviour {
 
             botonTurno.GetComponent<Image>().color = Color.white;
             botonTurno.colors = colorBoton;
-  
+
 
 
             heroeSituado = true;
         }
 
         //Cuando el héroe ya está colocado y se pulsa en una casilla que no sea héroe ni casa, esta rotará entre suelo, aliado y zombie
-        else if (heroeSituado && objetoCasilla.tag != "Heroe")
+        else if (objetoCasilla.GetComponent<Casilla>().tCasilla != Casilla.tipoCasilla.heroe && objetoCasilla.GetComponent<Casilla>().tCasilla != Casilla.tipoCasilla.casa)
         {
+            //Debug.Log(objetoCasilla.tag);
+            //Debug.Log(numAliados);
+            //Debug.Log(numEnemigos);
+
+            switch ((int)objetoCasilla.GetComponent<Casilla>().tCasilla)
+            {
+                //Si se pulsa suelo cambiará a aliado o enemigo según capacidad
+                case 0:
+            
+                    //Si caben aliados se cambiará por uno
+                    if (numAliados < 5)
+                    {
+                        //Destroy(objetoCasilla);
+
+                        Instantiate(aliado, ph, Quaternion.identity);
+
+                        numAliados++;
+                    }
+
+                    //Si no caben aliados se pondran enemigos hasta llenar el cupo
+                    else if (numEnemigos < 20)
+                    {
+                        //Destroy(objetoCasilla);
+
+                        Instantiate(enemigo, ph, Quaternion.identity);
+                        numEnemigos++;
+                    }
+
+                    break;
+
+                //Si se pulsa aliado cambiará a enemigo o suelo según capacidad
+                case 3:
+            
+
+                    //Hay que destruir al aliado en los dos casos
+                    //Si caben enemigos se añadiran hasta llenar el cupo
+                    if (numEnemigos < 20)
+                    {
+                        //Destroy(objetoCasilla);
+                        if (numAliados > 0) numAliados--;
+
+                        Instantiate(enemigo, ph, Quaternion.identity);
+                        numEnemigos++;
+                    }
+
+                    //Si no caben más enemigos se instancia suelo
+                    else
+                    {
+                        //Destroy(objetoCasilla);
+                        if (numAliados > 0) numAliados--;
+
+                    }
+
+                        break;
+
+                //Si se pulsa sobre un enemigo se pondrá siempre suelo
+                case 4:
+            
+                    //Se destruye al enemigo
+                    //Destroy(objetoCasilla);
+                    if (numEnemigos > 0) numAliados--;
+
+                    Instantiate(suelo, ph, Quaternion.identity);
+
+                    break;
+
+
+        }
+
+
             //Si se pulsa suelo cambiará a aliado o enemigo según capacidad
             if (objetoCasilla.tag == "Suelo")
             {
                 //Si caben aliados se cambiará por uno
                 if (numAliados < 5)
                 {
-                   Destroy(objetoCasilla);
+                    Destroy(objetoCasilla);
 
-                   Instantiate(aliado, ph, Quaternion.identity);
+                    Instantiate(aliado, ph, Quaternion.identity);
                     numAliados++;
                 }
 
                 //Si no caben aliados se pondran enemigos hasta llenar el cupo
-                else if ( numEnemigos < 20)
+                else if (numEnemigos < 20)
                 {
                     Destroy(objetoCasilla);
 
