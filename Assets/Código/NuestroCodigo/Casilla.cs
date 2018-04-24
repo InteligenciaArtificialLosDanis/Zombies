@@ -72,7 +72,7 @@ public class Casilla : MonoBehaviour {
 
     }
 
-    void OnMouseDown () {
+    void OnMouseUp () {
         GameManager.instance.onClick(this.gameObject);
  
     }
