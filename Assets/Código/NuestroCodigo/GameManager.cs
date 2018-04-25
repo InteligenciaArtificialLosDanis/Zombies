@@ -45,6 +45,10 @@ public class GameManager : MonoBehaviour {
     int numAliados = 0;     //max 5
     int numEnemigos = 0;    //max 20
 
+    //Puntuación
+    int puntuacion = 0;
+    public Text t;      //Texto que aparece por pantalla con la puntuación
+
     //enum tipoCasilla { suelo, heroe, aliado, enemigo, casa };
 
     GameObject[,] tablero;
@@ -54,13 +58,13 @@ public class GameManager : MonoBehaviour {
 
 		tablero = new GameObject[AnchoTablero, AltoTablero];
 
-        //Estamos guardando prefabs y no sé si es lo que queremos :/
-        for (int i = 0; i < AnchoTablero; i++){
+        //Estamos guardando prefabs :/
+        /*for (int i = 0; i < AnchoTablero; i++){
             for (int j = 0; j < AltoTablero; j++)
             {
                 tablero[i, j] = suelo;
             }
-        }
+        }*/
 
         creaTableroBase();
 	}
@@ -98,8 +102,16 @@ public class GameManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-		
+        //De momento la puntuación se actualiza en el update
+        t.text = "Puntuacion: " + puntuacion;
 	}
+
+    //Modifica los puntos según los que le vengan de la IA
+    public void setPuntuacion (int newPuntos){
+
+        puntuacion += newPuntos;
+
+    }
 
     public void onClick(GameObject objetoCasilla)
     {
@@ -193,6 +205,7 @@ public class GameManager : MonoBehaviour {
                         Destroy(tablero[posX, posY]);
                         if (numAliados > 0) numAliados--;
                         objetoCasilla.GetComponent<Casilla>().setTipoCasilla(0);
+                        tablero[posX, posY] = objetoCasilla;
 
                     }
 
@@ -204,7 +217,7 @@ public class GameManager : MonoBehaviour {
                     Destroy(tablero[posX, posY]);
                     if (numEnemigos > 0) numAliados--;
                     objetoCasilla.GetComponent<Casilla>().setTipoCasilla(0);
-
+                    tablero[posX, posY] = objetoCasilla;
                     break;
 
 
