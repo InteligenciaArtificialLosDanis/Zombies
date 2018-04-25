@@ -130,6 +130,8 @@ public class GameManager : MonoBehaviour {
             //Destroy(objetoCasilla);
 
             tablero[posHeroeX, posHeroeY] = Instantiate(heroe, ph, Quaternion.identity);
+            //Llamar al setPosHeroe :3
+
             //Heroe a true, quitamos el texto y habilitamos el botón
             textoHeroe.enabled = false;
 
