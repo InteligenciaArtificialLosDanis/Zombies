@@ -22,7 +22,6 @@ GameObject:
   - component: {fileID: 212824848338027896}
   - component: {fileID: 114806381464091818}
   - component: {fileID: 61127169841974644}
-  - component: {fileID: 114798586626523406}
   m_Layer: 0
   m_Name: Hierba
   m_TagString: Suelo
@@ -68,19 +67,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 2.8, y: 2.7}
   m_EdgeRadius: 0
---- !u!114 &114798586626523406
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1098908801037098}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2994b07bc5a9d954db9a3eff9b012b19, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  posMatriz: {x: 0, y: 0}
-  tCasilla: 0
 --- !u!114 &114806381464091818
 MonoBehaviour:
   m_ObjectHideFlags: 1
