@@ -332,6 +332,7 @@
     <Compile Include="Assets\Código\CodigoExterno\VariableElimination.cs" />
     <Compile Include="Assets\Código\NuestroCodigo\Casilla.cs" />
     <Compile Include="Assets\Código\NuestroCodigo\GameManager.cs" />
+    <Compile Include="Assets\Código\NuestroCodigo\IAAliada.cs" />
     <Compile Include="Assets\Código\NuestroCodigo\IAEnemigos.cs" />
     <Compile Include="Assets\Código\NuestroCodigo\IAManager.cs" />
   </ItemGroup>

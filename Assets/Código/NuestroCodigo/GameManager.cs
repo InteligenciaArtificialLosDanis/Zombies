@@ -166,8 +166,9 @@ public class GameManager : MonoBehaviour {
 
                         //Instancia
                         tablero[posX, posY] = Instantiate(aliado, ph, Quaternion.identity);
+                        tablero[posX, posY].GetComponent<IAAliada>().setAliado(numAliados, posX, posY); // Al Id le pasamos del 0 a 4. Hay que tener en cuenta eso.
                         objetoCasilla.GetComponent<Casilla>().setTipoCasilla(3);
-
+                        
                         numAliados++;
                     }
 
@@ -217,7 +218,7 @@ public class GameManager : MonoBehaviour {
                 case 4:
 
                     Destroy(tablero[posX, posY]);
-                    if (numEnemigos > 0) numAliados--;
+                    if (numEnemigos > 0) numEnemigos--;
                     objetoCasilla.GetComponent<Casilla>().setTipoCasilla(0);
                     tablero[posX, posY] = objetoCasilla;
                     break;

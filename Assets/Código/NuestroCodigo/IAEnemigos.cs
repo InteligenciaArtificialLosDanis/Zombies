@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
+
 public class IAEnemigos : MonoBehaviour {
 
     Vector2 posHeroe = new Vector2(-1,-1);
@@ -61,6 +63,10 @@ public class IAEnemigos : MonoBehaviour {
                 posAliado5.y = posY;
                 break;
         }
+    }
+    float distanciaEuclidea(Vector2 posPropia, Vector2 posDestino)
+    {
+        return Mathf.Abs(posDestino.x - posPropia.x) + Mathf.Abs(posDestino.y - posPropia.y);
     }
 
     //Busca en el tablero cual es el aliado o héroe más cercano
