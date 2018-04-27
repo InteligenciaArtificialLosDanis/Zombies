@@ -212,7 +212,7 @@ public class GameManager : MonoBehaviour {
 
                     }
 
-                        break;
+                    break;
 
                 //Si se pulsa sobre un enemigo se pondrá siempre suelo
                 case 4:
@@ -258,8 +258,33 @@ public class GameManager : MonoBehaviour {
     {
         if (heroeSituado)
         {
-            Debug.Log("JAJA SI");
-        }
+           //Hacemos un barrido de todas las posiciones de los actores de juego
+            int contBuenos = 0;
+            int contMalos = 0;
+            Vector2[] Buenos = new Vector2[6];
+            Vector2[] Malos = new Vector2[20];
+            
+            for (int i = 0; i < AltoTablero; i++)
+            {
+                for (int j = 0; j < AnchoTablero; j++)
+                {
+                    //Guardo las posiciones, sin importar que sea aliado o heroe
+                    if (tablero[i, j].tag == "Heroe" || tablero[i, j].tag == "Aliados" )
+                    {
+                        Buenos[contBuenos] = new Vector2(i, j); 
+                        contBuenos++;
+                    }
+
+                    else if (tablero[i, j].tag == "Enemigos")
+                    {
+                        Malos[contMalos] = new Vector2(i, j);
+                        contMalos++;
+                    }
+                }
+            }//for
+
+            //Ahora cedemos el control a la IA, pasandole el tablero y los vectores de posiciones
+        }   
     }
 
     public void callbackReinicio()
