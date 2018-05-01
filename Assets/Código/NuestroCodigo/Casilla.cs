@@ -35,7 +35,7 @@ public class Casilla : MonoBehaviour {
 
     public Vector2Int getPosMatriz()
     {
-        Debug.Log("Si salgo, preocupate");
+        //Debug.Log("Si salgo, preocupate");
         return posMatriz;
     }
 

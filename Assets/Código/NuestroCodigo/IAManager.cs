@@ -18,7 +18,7 @@ public class IAManager : MonoBehaviour {
     //*Mueve los zombies
     //*Mueve al heroe
     //*Resuelve colisiones (Si las hubiera)
-    public void turnoIA(GameObject[,] tablero, Vector2[] posBuenos, Vector2Int[] posMalos)
+    public void turnoIA(GameObject[,] tablero, Vector2Int[] posBuenos, Vector2Int[] posMalos)
     {
         //MOVIMIENTO DE LOS ZOMBIES
         for (int i = 0; i < posMalos.Length; i++)

@@ -31,8 +31,8 @@ public class IAAliada : MonoBehaviour {
         return ID;
     }
 
-    public Vector2 getPosition()
+    public Vector2Int getPosition()
     {
-        return new Vector2(posX, posY);
+        return new Vector2Int(posX, posY);
     }
 }

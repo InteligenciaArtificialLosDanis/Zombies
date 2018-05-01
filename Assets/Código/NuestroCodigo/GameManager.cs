@@ -52,6 +52,7 @@ public class GameManager : MonoBehaviour {
     //enum tipoCasilla { suelo, heroe, aliado, enemigo, casa };
 
     GameObject[,] tablero;
+    GameObject[,] casillas;
 	// Use this for initialization
 	void Start () {
         instance = this;
@@ -62,7 +63,8 @@ public class GameManager : MonoBehaviour {
         /*for (int i = 0; i < AnchoTablero; i++){
             for (int j = 0; j < AltoTablero; j++)
             {
-                tablero[i, j] = suelo;
+                casillas[i, j] = suelo;
+                casillas[i, j].GetComponent<Casilla>().setTipoCasilla(0);
             }
         }*/
 
@@ -88,11 +90,16 @@ public class GameManager : MonoBehaviour {
                 {
                     Instantiate(suelo, new Vector3(i, j, 0), Quaternion.identity);
                     Instantiate(casa, new Vector3(i, j, 0), Quaternion.identity);
+
+                    casillas[i, j].GetComponent<Casilla>().setTipoCasilla(2);
                 }
                 else
                 {
                     tablero[i, j] = Instantiate(suelo, new Vector3(i, j, 0), Quaternion.identity);
-                    tablero[i, j].GetComponent<Casilla>().setPosMatriz(i, j);
+
+                    casillas[i, j] = Instantiate(suelo, new Vector3(i, j, 0), Quaternion.identity);
+                    casillas[i, j].GetComponent<Casilla>().setTipoCasilla(0);
+                    casillas[i, j].GetComponent<Casilla>().setPosMatriz(i, j);
                 }
             }
         }
@@ -127,6 +134,8 @@ public class GameManager : MonoBehaviour {
             posHeroeX = posCasilla.x;
             posHeroeY = posCasilla.y;
 
+            casillas[posCasilla.x, posCasilla.y].GetComponent<Casilla>().setTipoCasilla(1);
+
             //Destroy(objetoCasilla);
 
             tablero[posHeroeX, posHeroeY] = Instantiate(heroe, ph, Quaternion.identity);
@@ -137,8 +146,6 @@ public class GameManager : MonoBehaviour {
 
             botonTurno.GetComponent<Image>().color = Color.white;
             botonTurno.colors = colorBoton;
-
-
 
             heroeSituado = true;
         }
@@ -167,7 +174,7 @@ public class GameManager : MonoBehaviour {
                         //Instancia
                         tablero[posX, posY] = Instantiate(aliado, ph, Quaternion.identity);
                         tablero[posX, posY].GetComponent<IAAliada>().setAliado(numAliados, posX, posY); // Al Id le pasamos del 0 a 4. Hay que tener en cuenta eso.
-                        objetoCasilla.GetComponent<Casilla>().setTipoCasilla(3);
+                        casillas[posX, posY].GetComponent<Casilla>().setTipoCasilla(3);
                         
                         numAliados++;
                     }
@@ -179,7 +186,7 @@ public class GameManager : MonoBehaviour {
 
                         //Instancia
                         tablero[posX, posY] = Instantiate(enemigo, ph, Quaternion.identity);
-                        objetoCasilla.GetComponent<Casilla>().setTipoCasilla(4);
+                        casillas[posX, posY].GetComponent<Casilla>().setTipoCasilla(4);
                         numEnemigos++;
                     }
 
@@ -198,7 +205,7 @@ public class GameManager : MonoBehaviour {
 
                         //Instancia
                         tablero[posX, posY] = Instantiate(enemigo, ph, Quaternion.identity);
-                        objetoCasilla.GetComponent<Casilla>().setTipoCasilla(4);
+                        casillas[posX, posY].GetComponent<Casilla>().setTipoCasilla(4);
                         numEnemigos++;
                     }
 
@@ -207,7 +214,7 @@ public class GameManager : MonoBehaviour {
                     {
                         Destroy(tablero[posX, posY]);
                         if (numAliados > 0) numAliados--;
-                        objetoCasilla.GetComponent<Casilla>().setTipoCasilla(0);
+                        casillas[posX, posY].GetComponent<Casilla>().setTipoCasilla(0);
                         tablero[posX, posY] = objetoCasilla;
 
                     }
@@ -219,7 +226,7 @@ public class GameManager : MonoBehaviour {
 
                     Destroy(tablero[posX, posY]);
                     if (numEnemigos > 0) numEnemigos--;
-                    objetoCasilla.GetComponent<Casilla>().setTipoCasilla(0);
+                    casillas[posX, posY].GetComponent<Casilla>().setTipoCasilla(0);
                     tablero[posX, posY] = objetoCasilla;
                     break;
 
@@ -260,30 +267,139 @@ public class GameManager : MonoBehaviour {
         {
            //Hacemos un barrido de todas las posiciones de los actores de juego
             int contBuenos = 0;
+            Vector2Int[] Buenos = new Vector2Int[5];
+            GameObject[] listaMalos = new GameObject[20];
             int contMalos = 0;
-            Vector2[] Buenos = new Vector2[6];
-            Vector2[] Malos = new Vector2[20];
-            
+
             for (int i = 0; i < AltoTablero; i++)
             {
                 for (int j = 0; j < AnchoTablero; j++)
                 {
                     //Guardo las posiciones, sin importar que sea aliado o heroe
-                    if (tablero[i, j].tag == "Heroe" || tablero[i, j].tag == "Aliados" )
+                    if (tablero[i, j].tag == "Aliados" )
                     {
-                        Buenos[contBuenos] = new Vector2(i, j); 
+                        Buenos[contBuenos] = new Vector2Int(i, j); 
                         contBuenos++;
                     }
 
                     else if (tablero[i, j].tag == "Enemigos")
                     {
-                        Malos[contMalos] = new Vector2(i, j);
-                        contMalos++;
+                        listaMalos[contMalos] = tablero[i, j];
+                        tablero[i, j].GetComponent<IAEnemigos>().setPosicionEnemigo(i, j);
+                        
+                    }
+
+                    else if (tablero[i, j].tag == "Heroe")
+                    {
+                        posHeroeX = i;
+                        posHeroeY = j;
                     }
                 }
             }//for
 
-            //Ahora cedemos el control a la IA, pasandole el tablero y los vectores de posiciones
+            foreach (GameObject enemigo in listaMalos)
+            {
+                Vector2Int posEnemigo = enemigo.GetComponent<IAEnemigos>().getPos();
+                Vector2Int posObjetivo = enemigo.GetComponent<IAEnemigos>().buscaCercano(Buenos, new Vector2Int (posHeroeX, posHeroeY));
+
+                if (posEnemigo.y != posObjetivo.y)
+                {
+                    if (posEnemigo.y < posObjetivo.y)
+                    {
+                        enemigo.gameObject.transform.position = new Vector3(posEnemigo.x, posEnemigo.y - 1, 0);
+
+                        tablero[posEnemigo.x, posEnemigo.y] = Instantiate(suelo, new Vector3(posEnemigo.x, posEnemigo.y, 0), Quaternion.identity);
+                        tablero[posEnemigo.x, posEnemigo.y].GetComponent<Casilla>().setTipoCasilla(0);
+
+                        enemigo.GetComponent<IAEnemigos>().setPosicionEnemigo(posEnemigo.x, posEnemigo.y - 1);
+                    }
+
+                    else
+                    {
+                        enemigo.gameObject.transform.position = new Vector3(posEnemigo.x, posEnemigo.y + 1, 0);
+
+                        tablero[posEnemigo.x, posEnemigo.y] = Instantiate(suelo, new Vector3(posEnemigo.x, posEnemigo.y, 0), Quaternion.identity);
+                        tablero[posEnemigo.x, posEnemigo.y].GetComponent<Casilla>().setTipoCasilla(0);
+
+                        enemigo.GetComponent<IAEnemigos>().setPosicionEnemigo(posEnemigo.x, posEnemigo.y + 1);
+                    }
+
+                }
+
+                else
+                {
+                    if (posEnemigo.x < posObjetivo.x)
+                    {
+                        enemigo.gameObject.transform.position = new Vector3(posEnemigo.x + 1, posEnemigo.y, 0);
+
+                        tablero[posEnemigo.x, posEnemigo.y] = Instantiate(suelo, new Vector3(posEnemigo.x, posEnemigo.y, 0), Quaternion.identity);
+                        tablero[posEnemigo.x, posEnemigo.y].GetComponent<Casilla>().setTipoCasilla(0);
+
+                        enemigo.GetComponent<IAEnemigos>().setPosicionEnemigo(posEnemigo.x + 1, posEnemigo.y);
+                    }
+
+                    else
+                    {
+                        enemigo.gameObject.transform.position = new Vector3(posEnemigo.x - 1, posEnemigo.y, 0);
+
+                        tablero[posEnemigo.x, posEnemigo.y] = Instantiate(suelo, new Vector3(posEnemigo.x, posEnemigo.y, 0), Quaternion.identity);
+                        tablero[posEnemigo.x, posEnemigo.y].GetComponent<Casilla>().setTipoCasilla(0);
+
+                        enemigo.GetComponent<IAEnemigos>().setPosicionEnemigo(posEnemigo.x - 1, posEnemigo.y);
+                    }
+                }
+
+                //Después de resolver todos los ifs la posición del enemigo apuntará a la casilla que te quieres mover.
+                //Habrá que revisar qué hay en esa casilla. Si hay un bueno resolver el conflicto y guardar en el tablero lo que quede,
+                //y si no se topa con nadie se actualiza el tablero como tipo zombie
+
+                Vector2Int movimiento = enemigo.GetComponent<IAEnemigos>().getPos();
+
+                //Si están en la misma casilla pelean
+                if (tablero[movimiento.x, movimiento.y].tag == "Aliados" || tablero[movimiento.x, movimiento.y].tag == "Heroe")
+                {
+                    int porcentajeGanador = 0;
+
+                    if (contBuenos + 1 >= 3) porcentajeGanador = 90;
+                    else if (contBuenos + 1 == 2) porcentajeGanador = 50;
+                    else if (contBuenos + 1 == 1) porcentajeGanador = 20;
+
+                    if (noche) porcentajeGanador -= 10;
+
+                    int combate = Random.Range(1, 100);
+
+                    //Si el número aleatorio está dentro del porcentajeGanador el aliado gana el combate
+                    if (combate <= porcentajeGanador)
+                    {
+                        //Se destruye el enemigo y se suman los puntos correspondientes
+                        Destroy(enemigo);
+
+                        if (tablero[movimiento.x, movimiento.y].tag == "Heroe") puntuacion += 5;
+                        else puntuacion++;
+                    }
+
+                    else
+                    {
+
+                        if (tablero[movimiento.x, movimiento.y].tag == "Aliados")
+                        {
+                            Destroy(tablero[movimiento.x, movimiento.y]);
+
+                            casillas[movimiento.x, movimiento.y].GetComponent<Casilla>().setTipoCasilla(4);
+
+                            tablero[movimiento.x, movimiento.y] = enemigo;
+
+                        }
+
+                        //Hay que mostrar algo por pantalla si muere el héroe (sin necesidad de modificar los parámetros)
+
+                      
+                    }
+                }
+
+            }
+           
+
         }   
     }
 
