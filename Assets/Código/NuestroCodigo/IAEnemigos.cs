@@ -39,7 +39,7 @@ public class IAEnemigos : MonoBehaviour {
 
     //Busca en el tablero cual es el aliado o héroe más cercano
     //Dado un vector de dónde están los buenos y una posicion, determina cual es el mejor
-    public Vector2Int buscaCercano(Vector2Int [] listaBuenos, Vector2Int posHeroe)
+    public Vector2Int buscaCercano(List<Vector2Int> listaBuenos, Vector2Int posHeroe)
     {
         float distanciaMenor = distanciaEuclidea(posicionEnemigo, posHeroe);
         Vector2Int objetivo = posHeroe;

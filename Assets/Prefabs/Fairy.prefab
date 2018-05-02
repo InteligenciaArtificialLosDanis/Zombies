@@ -20,6 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4886256704703668}
   - component: {fileID: 212505994969566920}
+  - component: {fileID: 114821066910057536}
   m_Layer: 0
   m_Name: Fairy
   m_TagString: Heroe
@@ -40,6 +41,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114821066910057536
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1286564763039586}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ef5c8455e79b324cbc1b17b6172c869, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!212 &212505994969566920
 SpriteRenderer:
   m_ObjectHideFlags: 1
